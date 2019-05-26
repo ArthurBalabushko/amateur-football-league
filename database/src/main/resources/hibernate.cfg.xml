@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/football_league_repository</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+    <property name="connection.username">postgres</property>
+    <property name="connection.password">password</property>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+
+    <mapping class="com.itacademy.database.entity.User"/>
+    <mapping class="com.itacademy.database.entity.Manager"/>
+    <mapping class="com.itacademy.database.entity.Landlord"/>
+    <mapping class="com.itacademy.database.entity.Role"/>
+    <mapping class="com.itacademy.database.entity.Team"/>
+    <mapping class="com.itacademy.database.entity.Sponsor"/>
+    <mapping class="com.itacademy.database.entity.Position"/>
+    <mapping class="com.itacademy.database.entity.Player"/>
+    <mapping class="com.itacademy.database.entity.FootballField"/>
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

@@ -1,7 +1,8 @@
-package by.itacademy.service.service;
+package com.itacademy.service.service;
 
-import by.itacademy.database.dao.UserDao;
-import by.itacademy.database.dto.ViewUserInfoDto;
+import com.itacademy.database.connection.SessionFactoryUtil;
+import com.itacademy.database.dao.PlayerDao;
+import com.itacademy.database.dto.ViewPlayerDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -9,13 +10,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserService {
+public class PlayerService {
 
-    private static final UserService INSTANCE = new UserService();
+    private static final PlayerService INSTANCE = new PlayerService();
 
-    public Optional<ViewUserInfoDto> findById(Integer id) {
+    public Optional<ViewPlayerDto> findById(Long id) {
 
-        return UserDao.getInstance().findById(id).map(it -> ViewUserInfoDto.builder()
+        return PlayerDao.getInstance().findById(SessionFactoryUtil.getSessionFactory().openSession(), id).map(it -> ViewPlayerDto.builder()
                 .id(it.getId())
                 .firstName(it.getFirstName())
                 .lastName(it.getLastName())
@@ -26,7 +27,11 @@ public class UserService {
                 .build());
     }
 
-    public static UserService getInstance() {
+    public void save(ViewPlayerDto viewPlayerDto) {
+
+    }
+
+    public static PlayerService getInstance() {
         return INSTANCE;
     }
 }

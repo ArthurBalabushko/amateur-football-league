@@ -1,4 +1,4 @@
-package by.itacademy.database.dto;
+package com.itacademy.database.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ViewUserInfoDto {
+public class ViewPlayerDto {
     private Long id;
     private String firstName;
     private String lastName;
@@ -17,4 +17,8 @@ public class ViewUserInfoDto {
     private String phoneNumber;
     private String email;
     private String role;
+    private String position;
+    private Integer growth;
+    private Integer weight;
+    private String team;
 }
