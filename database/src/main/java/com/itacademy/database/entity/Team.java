@@ -52,6 +52,6 @@ public class Team implements BaseEntity<Long> {
             inverseJoinColumns = @JoinColumn(name = "sponsor_id"))
     private List<Sponsor> sponsors = new ArrayList<>();
 
-    @OneToMany(mappedBy = "teamsPlayer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private Set<Player> players = new HashSet<>();
 }

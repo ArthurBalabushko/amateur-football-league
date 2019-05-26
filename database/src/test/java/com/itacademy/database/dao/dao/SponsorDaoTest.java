@@ -64,6 +64,7 @@ public class SponsorDaoTest {
         if (resultSponsor.isPresent()) {
             assertEquals(expectedSponsor, resultSponsor.get());
             assertThat(resultSponsor.get().getName(), equalTo("Etihad Airways"));
+            assertThat(resultSponsor.get().getTeams().size(), equalTo(3));
         }
     }
 }

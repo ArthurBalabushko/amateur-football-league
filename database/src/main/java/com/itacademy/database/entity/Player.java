@@ -34,7 +34,7 @@ public class Player extends User {
 
     @ManyToOne
     @JoinColumn(name = "team_id")
-    private Team teamsPlayer;
+    private Team team;
 
     public Player(String firstName, String lastName, LocalDate birthDay, String phoneNumber, String email,
                   String password, Role role, Position position, Integer growth, Integer weight, Team teamsPlayer) {
@@ -43,6 +43,6 @@ public class Player extends User {
         this.position = position;
         this.growth = growth;
         this.weight = weight;
-        this.teamsPlayer = teamsPlayer;
+        this.team = team;
     }
 }
