@@ -1,32 +1,28 @@
 package com.itacademy.database.dao;
 
 import com.itacademy.database.entity.Manager;
+import com.itacademy.database.util.SessionManager;
+import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
-import org.hibernate.Session;
 
 import java.util.Optional;
 
-import static java.util.Optional.ofNullable;
+import static com.itacademy.database.entity.QManager.manager;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ManagerDao {
+public class ManagerDao implements BaseDao<Long, Manager> {
 
     private static final ManagerDao INSTANCE = new ManagerDao();
 
-    @SneakyThrows
-    public Manager save(Session session, Manager manager) {
-        session.save(manager);
+    public Optional<Manager> findByEmail(String email) {
+        Manager resultManager = new JPAQuery<Manager>(SessionManager.getSession())
+                .select(manager)
+                .from(manager)
+                .where(manager.email.eq(email))
+                .fetchOne();
 
-        return manager;
-    }
-
-    @SneakyThrows
-    public Optional<Manager> findById(Session session, Long id) {
-        Manager manager = session.get(Manager.class, id);
-
-        return ofNullable(manager);
+        return Optional.ofNullable(resultManager);
     }
 
     public static ManagerDao getInstance() {

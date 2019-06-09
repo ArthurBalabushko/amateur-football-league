@@ -1,32 +1,29 @@
 package com.itacademy.database.dao;
 
 import com.itacademy.database.entity.Team;
+import com.itacademy.database.util.SessionManager;
+import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
-import org.hibernate.Session;
 
 import java.util.Optional;
 
+import static com.itacademy.database.entity.QTeam.team;
 import static java.util.Optional.ofNullable;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TeamDao {
+public class TeamDao implements BaseDao<Long, Team> {
 
     private static final TeamDao INSTANCE = new TeamDao();
 
-    @SneakyThrows
-    public Team save(Session session, Team team) {
-        session.save(team);
+    public Optional<Team> findByName(String name) {
+        Team resultTeam = new JPAQuery<Team>(SessionManager.getSession())
+                .select(team)
+                .from(team)
+                .where(team.name.eq(name))
+                .fetchOne();
 
-        return team;
-    }
-
-    @SneakyThrows
-    public Optional<Team> findById(Session session, Long id) {
-        Team team = session.get(Team.class, id);
-
-        return ofNullable(team);
+        return ofNullable(resultTeam);
     }
 
     public static TeamDao getInstance() {
