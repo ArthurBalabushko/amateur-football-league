@@ -4,6 +4,7 @@ import com.itacademy.database.entity.Role;
 import com.itacademy.database.util.SessionManager;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class RoleDao implements BaseDao<Integer, Role> {
     private static final RoleDao INSTANCE = new RoleDao();
 
     public Optional<Role> findByName(String name) {
-        Role resultRole = new JPAQuery<Role>(SessionManager.getSession())
+        @Cleanup Role resultRole = new JPAQuery<Role>(SessionManager.getSession())
                 .select(role)
                 .from(role)
                 .where(role.name.eq(name))

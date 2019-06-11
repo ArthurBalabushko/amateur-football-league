@@ -4,6 +4,7 @@ import com.itacademy.database.entity.Team;
 import com.itacademy.database.util.SessionManager;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class TeamDao implements BaseDao<Long, Team> {
     private static final TeamDao INSTANCE = new TeamDao();
 
     public Optional<Team> findByName(String name) {
-        Team resultTeam = new JPAQuery<Team>(SessionManager.getSession())
+        @Cleanup Team resultTeam = new JPAQuery<Team>(SessionManager.getSession())
                 .select(team)
                 .from(team)
                 .where(team.name.eq(name))

@@ -4,6 +4,7 @@ import com.itacademy.database.entity.Manager;
 import com.itacademy.database.util.SessionManager;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class ManagerDao implements BaseDao<Long, Manager> {
     private static final ManagerDao INSTANCE = new ManagerDao();
 
     public Optional<Manager> findByEmail(String email) {
-        Manager resultManager = new JPAQuery<Manager>(SessionManager.getSession())
+        @Cleanup Manager resultManager = new JPAQuery<Manager>(SessionManager.getSession())
                 .select(manager)
                 .from(manager)
                 .where(manager.email.eq(email))

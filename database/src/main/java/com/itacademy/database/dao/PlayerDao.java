@@ -8,6 +8,7 @@ import com.itacademy.database.util.SessionManager;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ public class PlayerDao implements BaseDao<Long, Player> {
     private static final PlayerDao INSTANCE = new PlayerDao();
 
     public Optional<Player> findByEmail(String email) {
-        Player resultPlayer = new JPAQuery<Player>(SessionManager.getSession())
+        @Cleanup Player resultPlayer = new JPAQuery<Player>(SessionManager.getSession())
                 .select(player)
                 .from(player)
                 .where(player.email.eq(email))
@@ -33,28 +34,33 @@ public class PlayerDao implements BaseDao<Long, Player> {
     }
 
     public List<Player> findAllByPosition(Position position) {
-        return new JPAQuery<Player>(SessionManager.getSession())
+        @Cleanup List<Player> players = new JPAQuery<Player>(SessionManager.getSession())
                 .select(player)
                 .from(player)
                 .where(player.position.eq(position))
                 .orderBy(player.lastName.asc())
                 .fetch();
+
+        return players;
     }
 
     public List<Player> findAllByTeam(Team team) {
-        return new JPAQuery<Player>(SessionManager.getSession())
+        @Cleanup List<Player> players = new JPAQuery<Player>(SessionManager.getSession())
                 .select(player)
                 .from(player)
                 .where(player.team.eq(team))
                 .orderBy(player.lastName.asc())
                 .fetch();
+
+        return players;
     }
 
     public List<Player> findAllByFilter(FilterPlayer filter) {
 
         BooleanExpression criterion;
+        String teamValue = "noTeam";
 
-        if (filter.getTeam().equals("noTeam")) {
+        if (teamValue.equals(filter.getTeam())) {
             criterion = player.team.isNull().and(player.position.name.eq(filter.getPosition())
                     .and(player.birthDay.between(
                             LocalDate.of(LocalDate.now().getYear() - filter.getAgeTo(),
@@ -70,7 +76,7 @@ public class PlayerDao implements BaseDao<Long, Player> {
                                     LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth())));
         }
 
-        return new JPAQuery<Player>(SessionManager.getSession())
+        @Cleanup List<Player> players = new JPAQuery<Player>(SessionManager.getSession())
                 .select(player)
                 .from(player)
                 .where(criterion)
@@ -78,6 +84,8 @@ public class PlayerDao implements BaseDao<Long, Player> {
                 .offset(filter.getOffset())
                 .limit(filter.getLimit())
                 .fetch();
+
+        return players;
     }
 
     public static PlayerDao getInstance() {

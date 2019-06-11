@@ -4,6 +4,7 @@ import com.itacademy.database.entity.Position;
 import com.itacademy.database.util.SessionManager;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
 
 import java.util.Optional;
@@ -17,7 +18,7 @@ public class PositionDao implements BaseDao<Integer, Position> {
     private static final PositionDao INSTANCE = new PositionDao();
 
     public Optional<Position> findByName(String name) {
-        Position resultPosition = new JPAQuery<Position>(SessionManager.getSession())
+        @Cleanup Position resultPosition = new JPAQuery<Position>(SessionManager.getSession())
                 .select(position)
                 .from(position)
                 .where(position.name.eq(name))
