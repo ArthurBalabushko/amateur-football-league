@@ -1,32 +1,30 @@
 package com.itacademy.database.dao;
 
 import com.itacademy.database.entity.Position;
+import com.itacademy.database.util.SessionManager;
+import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
-import org.hibernate.Session;
 
 import java.util.Optional;
 
+import static com.itacademy.database.entity.QPosition.position;
 import static java.util.Optional.ofNullable;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PositionDao {
+public class PositionDao implements BaseDao<Integer, Position> {
 
     private static final PositionDao INSTANCE = new PositionDao();
 
-    @SneakyThrows
-    public Position save(Session session, Position position) {
-        session.save(position);
+    public Optional<Position> findByName(String name) {
+        @Cleanup Position resultPosition = new JPAQuery<Position>(SessionManager.getSession())
+                .select(position)
+                .from(position)
+                .where(position.name.eq(name))
+                .fetchOne();
 
-        return position;
-    }
-
-    @SneakyThrows
-    public Optional<Position> findById(Session session, Integer id) {
-        Position position = session.get(Position.class, id);
-
-        return ofNullable(position);
+        return ofNullable(resultPosition);
     }
 
     public static PositionDao getInstance() {

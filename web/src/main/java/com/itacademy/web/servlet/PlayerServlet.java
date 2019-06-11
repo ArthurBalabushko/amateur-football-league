@@ -15,11 +15,10 @@ import java.util.Optional;
 @WebServlet("/player")
 public class PlayerServlet extends HttpServlet {
 
-    private static final Long PLAYER_ID = 1L;
+    private static final Long PLAYER_ID = 3L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Optional<ViewPlayerDto> playerDto = PlayerService.getInstance().findById(PLAYER_ID);
         playerDto.ifPresent(viewPlayerDto -> req.setAttribute("player", viewPlayerDto));
 

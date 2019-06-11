@@ -24,14 +24,12 @@ CREATE TABLE users
 
 CREATE TABLE manager
 (
-    id          BIGSERIAL NOT NULL PRIMARY KEY,
-    user_id     BIGINT    NOT NULL UNIQUE REFERENCES users (id) ON DELETE CASCADE
+    user_id BIGINT PRIMARY KEY REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE landlord
 (
-    id          BIGSERIAL NOT NULL PRIMARY KEY,
-    user_id     BIGINT    NOT NULL UNIQUE REFERENCES users (id) ON DELETE CASCADE
+    user_id BIGINT PRIMARY KEY REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE sponsor
@@ -44,7 +42,7 @@ CREATE TABLE team
 (
     id         BIGSERIAL    NOT NULL PRIMARY KEY,
     name       VARCHAR(128) NOT NULL UNIQUE,
-    manager_id BIGINT       NOT NULL UNIQUE REFERENCES manager (id) ON DELETE CASCADE
+    manager_id BIGINT       NOT NULL UNIQUE REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE team_sponsor
@@ -62,12 +60,11 @@ CREATE TABLE position
 
 CREATE TABLE player
 (
-    id          BIGSERIAL NOT NULL PRIMARY KEY,
-    user_id     BIGINT    NOT NULL UNIQUE REFERENCES users (id) ON DELETE CASCADE,
-    position_id INTEGER   NOT NULL REFERENCES position (id),
+    user_id     BIGINT PRIMARY KEY REFERENCES users (id) ON DELETE CASCADE,
+    position_id INTEGER NOT NULL REFERENCES position (id),
     growth      INTEGER,
     weight      INTEGER,
-    team_id     BIGINT    REFERENCES team (id) ON DELETE SET NULL
+    team_id     BIGINT  REFERENCES team (id) ON DELETE SET NULL
 );
 
 CREATE TABLE football_field
@@ -77,14 +74,14 @@ CREATE TABLE football_field
     location_city   VARCHAR(128) NOT NULL,
     location_street VARCHAR(128) NOT NULL,
     phone_number    VARCHAR(32),
-    landlord_id     BIGINT       NOT NULL REFERENCES landlord (id) ON DELETE CASCADE
+    landlord_id     BIGINT       NOT NULL REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE invitation_in_team
 (
     id        BIGSERIAL   NOT NULL PRIMARY KEY,
     date      DATE        NOT NULL,
-    player_id BIGINT      NOT NULL REFERENCES player (id) ON DELETE CASCADE,
+    player_id BIGINT      NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     team_id   BIGINT      NOT NULL REFERENCES team (id) ON DELETE CASCADE,
     status    VARCHAR(32) NOT NULL
 );
@@ -93,7 +90,7 @@ CREATE TABLE request_in_team
 (
     id        BIGSERIAL   NOT NULL PRIMARY KEY,
     date      DATE        NOT NULL,
-    player_id BIGINT      NOT NULL REFERENCES player (id) ON DELETE CASCADE,
+    player_id BIGINT      NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     team_id   BIGINT      NOT NULL REFERENCES team (id) ON DELETE CASCADE,
     status    VARCHAR(32) NOT NULL
 );
