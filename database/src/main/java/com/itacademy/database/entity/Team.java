@@ -42,7 +42,7 @@ public class Team implements BaseEntity<Long> {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
     private Manager manager;
 

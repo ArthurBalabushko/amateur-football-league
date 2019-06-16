@@ -6,6 +6,9 @@ import com.itacademy.database.dto.ViewPositionDto;
 import com.itacademy.service.service.PlayerService;
 import com.itacademy.service.service.PositionService;
 import com.itacademy.service.util.JspPathUtil;
+import com.itacademy.web.config.WebConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +21,14 @@ import java.util.List;
 @WebServlet("/list-players")
 public class ListPlayersServlet extends HttpServlet {
 
+    private ApplicationContext applicationContext = new AnnotationConfigApplicationContext(WebConfig.class);
+
+    private PositionService positionService = applicationContext.getBean(PositionService.class);
+    private PlayerService playerService = applicationContext.getBean(PlayerService.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<ViewPositionDto> positions = PositionService.getInstance().findAll();
+        List<ViewPositionDto> positions = positionService.findAll();
         req.setAttribute("positions", positions);
 
         getServletContext()
@@ -47,10 +55,10 @@ public class ListPlayersServlet extends HttpServlet {
                 .offset(offset)
                 .build();
 
-        List<ViewPlayerDto> players = PlayerService.getInstance().findAllByFilter(filterPlayer);
+        List<ViewPlayerDto> players = playerService.findByFilter(filterPlayer);
         req.setAttribute("players", players);
 
-        List<ViewPositionDto> positions = PositionService.getInstance().findAll();
+        List<ViewPositionDto> positions = positionService.findAll();
         req.setAttribute("positions", positions);
 
         getServletContext()

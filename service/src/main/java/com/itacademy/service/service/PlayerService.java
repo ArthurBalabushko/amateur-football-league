@@ -1,42 +1,27 @@
 package com.itacademy.service.service;
 
 import com.itacademy.database.Filter.FilterPlayer;
-import com.itacademy.database.dao.PlayerDao;
 import com.itacademy.database.dto.ViewPlayerDto;
 import com.itacademy.database.mapper.PlayerMapper;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import com.itacademy.database.repository.PlayerRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PlayerService {
 
-    private static final PlayerService INSTANCE = new PlayerService();
+    private final PlayerRepository playerRepository;
 
-    public Optional<ViewPlayerDto> findById(Long id) {
+    public List<ViewPlayerDto> findByFilter(FilterPlayer filterPlayer) {
 
-        return PlayerDao.getInstance().findById(id).map(it -> ViewPlayerDto.builder()
-                .id(it.getId())
-                .firstName(it.getFirstName())
-                .lastName(it.getLastName())
-                .birthDay(it.getBirthDay().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")))
-                .phoneNumber(it.getPhoneNumber())
-                .email(it.getEmail())
-                .role(it.getRole().getName())
-                .build());
-    }
-
-    public List<ViewPlayerDto> findAllByFilter(FilterPlayer filterPlayer) {
-
-        return PlayerDao.getInstance().findAllByFilter(filterPlayer).stream()
+        return playerRepository.findByFilter(filterPlayer).stream()
                 .map(it -> PlayerMapper.getInstance().mapToDto(it)).collect(Collectors.toList());
-    }
-
-    public static PlayerService getInstance() {
-        return INSTANCE;
     }
 }
