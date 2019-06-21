@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
@@ -55,7 +56,9 @@ public class PersistenceConfig {
     @Bean
     public Properties jpaProperties(@Value("classpath:hibernate.properties") Resource hibernateProperties) throws IOException {
         Properties properties = new Properties();
-        properties.load(hibernateProperties.getInputStream());
+        try (InputStream propertiesFile = hibernateProperties.getInputStream()) {
+            properties.load(propertiesFile);
+        }
 
         return properties;
     }
