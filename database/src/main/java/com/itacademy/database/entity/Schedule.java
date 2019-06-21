@@ -10,6 +10,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -38,8 +39,9 @@ public class Schedule implements BaseEntity<Schedule.ScheduleId> {
     @Embeddable
     public static class ScheduleId implements Serializable {
 
-        @Column(name = "football_field_id")
-        private Long footballFieldId;
+        @ManyToOne
+        @JoinColumn(name = "football_field_id")
+        private FootballField footballField;
 
         @Column(name = "day")
         private LocalDate date;

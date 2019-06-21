@@ -36,7 +36,7 @@ public class Player extends User {
     @Column(name = "weight")
     private Integer weight;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 

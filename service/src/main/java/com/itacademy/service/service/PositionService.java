@@ -1,26 +1,30 @@
 package com.itacademy.service.service;
 
-import com.itacademy.database.dao.PositionDao;
 import com.itacademy.database.dto.ViewPositionDto;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import com.itacademy.database.entity.Position;
+import com.itacademy.database.repository.PositionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PositionService {
 
-    private static final PositionService INSTANCE = new PositionService();
+    private final PositionRepository positionRepository;
 
     public List<ViewPositionDto> findAll() {
+        List<Position> positions = new ArrayList<>();
+        positionRepository.findAll().iterator().forEachRemaining(positions::add);
 
-        return PositionDao.getInstance().findAll().stream().map(it -> ViewPositionDto.builder()
+        return positions.stream().map(it -> ViewPositionDto.builder()
                 .name(it.getName())
                 .build()).collect(Collectors.toList());
-    }
-
-    public static PositionService getInstance() {
-        return INSTANCE;
     }
 }

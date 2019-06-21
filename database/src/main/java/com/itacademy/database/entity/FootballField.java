@@ -15,8 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -47,4 +50,7 @@ public class FootballField implements BaseEntity<Long> {
 
     @OneToOne(mappedBy = "footballField", fetch = FetchType.LAZY)
     private RequestOnField requestOnField;
+
+    @OneToMany(mappedBy = "id.footballField")
+    private Set<Schedule> schedules = new HashSet<>();
 }
