@@ -1,6 +1,6 @@
 package com.itacademy.database.repository;
 
-import com.itacademy.database.Filter.FilterPlayer;
+import com.itacademy.database.filter.FilterPlayer;
 import com.itacademy.database.entity.Player;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;

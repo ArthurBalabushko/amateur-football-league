@@ -1,6 +1,6 @@
 package com.itacademy.web.servlet;
 
-import com.itacademy.database.Filter.FilterPlayer;
+import com.itacademy.database.filter.FilterPlayer;
 import com.itacademy.database.dto.ViewPlayerDto;
 import com.itacademy.database.dto.ViewPositionDto;
 import com.itacademy.service.service.PlayerService;

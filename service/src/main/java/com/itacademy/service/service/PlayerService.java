@@ -1,6 +1,6 @@
 package com.itacademy.service.service;
 
-import com.itacademy.database.Filter.FilterPlayer;
+import com.itacademy.database.filter.FilterPlayer;
 import com.itacademy.database.dto.ViewPlayerDto;
 import com.itacademy.database.mapper.PlayerMapper;
 import com.itacademy.database.repository.PlayerRepository;

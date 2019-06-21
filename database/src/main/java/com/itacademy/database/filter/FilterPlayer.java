@@ -1,4 +1,4 @@
-package com.itacademy.database.Filter;
+package com.itacademy.database.filter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
