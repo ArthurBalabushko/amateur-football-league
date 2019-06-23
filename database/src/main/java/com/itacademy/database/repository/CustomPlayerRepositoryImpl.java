@@ -22,6 +22,11 @@ public class CustomPlayerRepositoryImpl implements CustomPlayerRepository {
         BooleanExpression criterion;
         String teamValue = "noTeam";
 
+        int offset = 0;
+        if (filterPlayer.getPage() > 1) {
+            offset = (filterPlayer.getPage() * filterPlayer.getLimit()) - filterPlayer.getLimit();
+        }
+
         if (teamValue.equals(filterPlayer.getTeam())) {
             criterion = player.team.isNull().and(player.position.name.eq(filterPlayer.getPosition())
                     .and(player.birthDay.between(
@@ -43,7 +48,7 @@ public class CustomPlayerRepositoryImpl implements CustomPlayerRepository {
                 .from(player)
                 .where(criterion)
                 .orderBy(player.lastName.asc())
-                .offset(filterPlayer.getOffset())
+                .offset(offset)
                 .limit(filterPlayer.getLimit())
                 .fetch();
     }
