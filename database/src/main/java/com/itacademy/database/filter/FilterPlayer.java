@@ -14,6 +14,4 @@ public class FilterPlayer {
     private Integer ageTo;
     private String position;
     private String team;
-    private Integer limit;
-    private Integer page;
 }

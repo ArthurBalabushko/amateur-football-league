@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Мой кабинет</title>
+</head>
+<body>
+<div th:fragment="main">
+    <div>
+        <form th:action="@{/my-profile}">
+            <button type="submit">Мой профиль</button>
+        </form>
+    </div>
+    <p></p>
+    <div>
+        <form th:action="@{/create-team}" method="get">
+            <button type="submit">Создать команду</button>
+        </form>
+    </div>
+    <p></p>
+    <p></p>
+    <div>
+        <form th:action="@{/list-request-in-team}">
+            <button type="submit">Мои заявки в команду</button>
+        </form>
+    </div>
+    <p></p>
+    <div>
+        <form th:action="@{/list-invitation}">
+            <button type="submit">Полученые приглашения в команду</button>
+        </form>
+    </div>
+    <div th:if="${player.team ne null}">
+        <input type="button" name="myTeam" value="Моя команда"
+               th:onClick="'window.location.href = \'' + @{/team/{id}(id=${team.id})} + '\''">
+    </div>
+</div>
+</body>
+</html>

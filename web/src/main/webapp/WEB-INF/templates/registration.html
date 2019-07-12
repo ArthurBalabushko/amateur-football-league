@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Регистрация</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<h1>Регистрация пользователя</h1>
+<form th:action="@{/registration}" method="post">
+    <div>
+        Фамилия: <input required type="text" name="lastName" size="15">
+    </div>
+    <br>
+    <div>
+        Имя: <input required type="text" name="firstName" size="15"><br>
+    </div>
+    <br>
+    <div>
+        Дата рождения: <input required type="date" name="birthDay" size="10"><br>
+    </div>
+    <br>
+    <div>
+        Телефон: <input required type="tel" placeholder="+375 (xx) yyy-yy-yy" name="phoneNumber" size="15"><br>
+    </div>
+    <br>
+    <span th:if="${param.error}" style="color: red">Email существует. Введите другой email</span><br>
+    <br>
+    <div>
+        Email: <input required type="email" name="email" size="15"><br>
+    </div>
+    <br>
+    <div>
+        Пароль: <input required type="password" name="password" size=" 15"><br>
+    </div>
+    <br>
+    <p>
+    <div>
+        <input type="radio" name="role" value="PLAYER" checked/> Игрок
+        <input type="radio" name="role" value="LANDLORD"/> Арендодатель
+    </div>
+    <p>
+    <table>
+        <tr>
+            <th>
+                <small>
+                    <input type="submit" name="save" value="Сохранить">
+                </small>
+            <th>
+    </table>
+</form>
+<small>
+    <form th:action="@{/login}">
+        <button type="submit">Выйти</button>
+    </form>
+</small>
+</body>
+</html>

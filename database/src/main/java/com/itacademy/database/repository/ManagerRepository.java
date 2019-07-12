@@ -10,4 +10,8 @@ import java.util.Optional;
 public interface ManagerRepository extends CrudRepository<Manager, Long> {
 
     Optional<Manager> findByEmail(String email);
+//
+//    @Modifying
+//    @Query("INSERT INTO Manager (id) SELECT u.id FROM User WHERE id = :id")
+//    int saveNew(@Param("id") Long id);
 }

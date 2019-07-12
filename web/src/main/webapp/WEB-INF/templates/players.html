@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Игроки</title>
@@ -8,13 +8,13 @@
 <div th:insert="~{header::main}"></div>
 <h2>Игроки</h2>
 <h3>Фильтр: </h3>
-<form th:action="@{/players}" th:method="post">
+<form th:action="@{/list-players}" th:method="get">
     <table border="1" cellspacing="0" cellpadding="2">
         <tr>
             <td><strong>Позиция: </strong></td>
             <td><strong>Команда: </strong></td>
             <td><strong>Возраст: </strong></td>
-            <td><strong>Отобразить: </strong></td>
+            <td><strong>Отобразить строк: </strong></td>
         </tr>
         <tr>
             <td>
@@ -26,7 +26,7 @@
                 </select>
             </td>
             <td>
-                <input type="radio" name="team" value="All" checked/> Все
+                <input type="radio" name="team" value="all" checked/> Все
                 <input type="radio" name="team" value="noTeam"> Без команды
             </td>
             <td>
@@ -34,18 +34,35 @@
                 до <input required type="number" name="ageTo">
             </td>
             <td>
-                строк на странице <input required type="number" name="limit" size="5">
-                страница № <input required type="number" name="page" size="5">
+                <div>
+                    <select name="size">
+                        <option th:each="pageSize : ${listPageSize}"
+                                th:text="${pageSize}"
+                                th:value="${pageSize}"
+                                th:selected="${pageSize} == ${selectedPageSize}">
+                        </option>
+                    </select>
+                </div>
             </td>
         </tr>
     </table>
+    <br>
     <small>
-        <input type="submit" name="ОК" value="ОК">
+        <input type="submit" value="Применить">
     </small>
 </form>
 <p></p>
-<div th:if="${listPlayers ne null}">
+<div th:if="${playerPage.content ne null}">
+    <h3>Список игроков</h3>
     <div th:replace="list-players :: content"></div>
+    <p></p>
+    Страницы: <span th:if="${playerPage.totalPages > 0}" class="pagination"
+                    th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/list-players(position=${filter.position}, team=${filter.team}, ageFrom=${filter.ageFrom},
+             ageTo=${filter.ageTo}, size=${playerPage.size}, page=${pageNumber})}"
+               th:text="${pageNumber}"
+               th:class="${pageNumber == playerPage.number + 1} ? active"></a>
+        </span>
 </div>
 </body>
 </html>

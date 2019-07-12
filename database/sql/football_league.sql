@@ -42,7 +42,7 @@ CREATE TABLE team
 (
     id         BIGSERIAL    NOT NULL PRIMARY KEY,
     name       VARCHAR(128) NOT NULL UNIQUE,
-    manager_id BIGINT       NOT NULL UNIQUE REFERENCES users (id) ON DELETE CASCADE
+    manager_id BIGINT       NOT NULL UNIQUE REFERENCES users (id)
 );
 
 CREATE TABLE team_sponsor

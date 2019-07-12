@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ViewPositionDto {
+
+    private Integer id;
     private String name;
 }

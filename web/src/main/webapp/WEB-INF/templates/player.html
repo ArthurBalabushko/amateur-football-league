@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Игрок</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<h2>Информация об игроке</h2>
+<table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+        <td><strong>Имя</strong></td>
+        <td><strong>Фамилия</strong></td>
+        <td><strong>Дата рождения</strong></td>
+        <td><strong>Номер телефона</strong></td>
+        <td><strong>Позиция на поле</strong></td>
+        <td><strong>Рост</strong></td>
+        <td><strong>Вес</strong></td>
+        <td><strong>Команда</strong></td>
+    </tr>
+    <tr>
+    <tr>
+        <td th:text="${player.firstName}">Имя</td>
+        <td th:text="${player.lastName}">Фамилия</td>
+        <td th:text="${player.birthDay}">Дата рождения</td>
+        <td th:text="${player.phoneNumber}">Номер телефона</td>
+        <td th:text="${player.position.name}">Позиция на поле</td>
+        <td th:text="${player.growth + ', см'}">Рост, см</td>
+        <td th:text="${player.weight + ', кг'}">Вес, кг</td>
+        <td th:if="${player.team ne null}" th:text="${player.team.name}">Команда</td>
+        <td th:unless="${player.team ne null}">нет команды</td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Создать игрока</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<h1>Регистрация игрока</h1>
+<form th:action="@{/create-player}" method="post" th:object="${session.user}">
+    <table border="1" cellspacing="0" cellpadding="2">
+        <tr>
+            <td><strong>Фамилия</strong></td>
+            <td><strong>Имя</strong></td>
+            <td><strong>Дата рождения</strong></td>
+            <td><strong>Номер телефона</strong></td>
+            <td><strong>Игровая позиция</strong></td>
+            <td><strong>Рост</strong></td>
+            <td><strong>Вес</strong></td>
+        </tr>
+        <tr>
+            <td>
+                <label th:text="*{lastName}" for="lastName"></label>
+                <input type="hidden" id="lastName" name="lastName" th:value="*{lastName}">
+            </td>
+            <td>
+                <label th:text="*{firstName}" for="firstName"></label>
+                <input type="hidden" id="firstName" name="firstName" th:value="*{firstName}">
+            </td>
+            <td>
+                <label th:text="*{birthDay}" for="birthDay"></label>
+                <input type="hidden" id="birthDay" name="birthDay" th:value="*{birthDay}">
+            </td>
+            <td>
+                <label th:text="*{phoneNumber}" for="phoneNumber"></label>
+                <input type="hidden" id="phoneNumber" name="phoneNumber" th:value="*{phoneNumber}">
+            </td>
+            <td>
+                <select name="positionId">
+                    <option th:each="position: ${positions}"
+                            th:text="${position.name}"
+                            th:value="${position.id}"> позиция
+                    </option>
+                </select>
+            </td>
+            <td>
+                <label for="growth"></label>
+                <input required id="growth" type="number" name="growth"/>, см
+            </td>
+            <td>
+                <label for="weight"></label>
+                <input required id="weight" type="number" name="weight"/>, кг
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <small>
+        <input type="submit" name="save" value="Сохранить">
+    </small>
+</form>
+</body>
+</html>
