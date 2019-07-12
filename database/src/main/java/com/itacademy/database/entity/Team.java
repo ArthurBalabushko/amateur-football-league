@@ -44,7 +44,7 @@ public class Team implements BaseEntity<Long> {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
-    private Manager manager;
+    private User manager;
 
     @Builder.Default
     @ManyToMany(cascade = CascadeType.PERSIST)

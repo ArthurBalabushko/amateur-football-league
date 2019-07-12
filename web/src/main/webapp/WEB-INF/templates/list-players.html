@@ -15,13 +15,13 @@
             <td><strong>Вес</strong></td>
             <td><strong>Команда</strong></td>
         </tr>
-        <tr th:each="player : ${listPlayers}">
-            <td th:text="${player.lastName + ' ' + player.firstName}">Фамилия, Имя</td>
+        <tr th:each="player : ${playerPage.content}">
+            <td> <a th:href="@{/player/{id}(id=${player.id})}" th:text="${player.lastName + ' ' + player.firstName}"></a></td>
             <td th:text="${player.birthDay}">Дата рождения</td>
-            <td th:text="${player.position}">Позиция на поле</td>
+            <td th:text="${player.position.name}">Позиция на поле</td>
             <td th:text="${player.growth + ', см'}">Рост, см</td>
             <td th:text="${player.weight + ', кг'}">Вес, кг</td>
-            <td th:if="${player.team ne null}" th:text="${player.team}">Команда</td>
+            <td th:if="${player.team ne null}" th:text="${player.team.name}">Команда</td>
             <td th:unless="${player.team ne null}">нет команды</td>
         </tr>
     </table>

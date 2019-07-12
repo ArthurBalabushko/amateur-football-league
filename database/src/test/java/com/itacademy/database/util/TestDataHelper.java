@@ -64,6 +64,19 @@ public final class TestDataHelper {
         entityManager.persist(roleManager);
         entityManager.persist(roleLandlord);
 
+        Position goalkeeper = Position.builder()
+                .name("goalkeeper")
+                .build();
+        Position defender = Position.builder()
+                .name("defender")
+                .build();
+        Position midfielder = Position.builder()
+                .name("midfielder")
+                .build();
+        entityManager.persist(goalkeeper);
+        entityManager.persist(defender);
+        entityManager.persist(midfielder);
+
         Manager manager1 = new Manager("Петя", "Петров",
                 LocalDate.of(1992, 7, 10), "+375 33 378 12 34",
                 "pp@mail.ru", "1234", roleManager);
@@ -73,6 +86,14 @@ public final class TestDataHelper {
         Landlord landlord1 = new Landlord("Константин", "Костин",
                 LocalDate.of(1988, 10, 17), "+375 33 378 33 35",
                 "kk@mail.ru", "1234", roleLandlord);
+
+//        Player manager1 = new Player("Павел", "Павлов",
+//                LocalDate.of(1988, 9, 24), "+375 33 498 10 66",
+//                "pavel99@mail.ru", "1234", roleManager, defender, 189, 87, null);
+//        Player manager2 = new Player("Павел", "Павлов",
+//                LocalDate.of(1988, 9, 24), "+375 33 498 10 66",
+//                "pavel999@mail.ru", "1234", roleManager, defender, 189, 87, null);
+
         entityManager.persist(manager1);
         entityManager.persist(manager2);
         entityManager.persist(landlord1);
@@ -117,18 +138,6 @@ public final class TestDataHelper {
         entityManager.persist(fcArsenal);
         entityManager.persist(fcBate);
 
-        Position goalkeeper = Position.builder()
-                .name("goalkeeper")
-                .build();
-        Position defender = Position.builder()
-                .name("defender")
-                .build();
-        Position midfielder = Position.builder()
-                .name("midfielder")
-                .build();
-        entityManager.persist(goalkeeper);
-        entityManager.persist(defender);
-        entityManager.persist(midfielder);
 
         Player player1 = new Player("Сергей", "Сергеев",
                 LocalDate.of(1989, 12, 31), "+375 33 378 14 56",

@@ -24,7 +24,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users", schema = "football_league_storage")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User implements BaseEntity<Long> {
+public class User implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

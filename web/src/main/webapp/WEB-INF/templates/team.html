@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Команда</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<h2>Команда</h2>
+<table border="1" cellspacing="0" cellpadding="2">
+    <tr>
+        <td><strong>Название</strong></td>
+        <td><strong>Менеджер</strong></td>
+    </tr>
+    <tr>
+        <td th:text="${team.name}">Название</td>
+        <td>
+            <a th:text="${team.manager.lastName + ' ' + team.manager.firstName}">Менеджер</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

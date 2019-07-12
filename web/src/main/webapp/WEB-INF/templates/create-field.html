@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Регистрация футбольного поля</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<h1>Регистрация футбольного поля</h1>
+<form th:action="@{/create-field}" method="post">
+    <table border="1" cellspacing="0" cellpadding="2">
+        <tr>
+            <td><strong>Название</strong></td>
+            <td><strong>Адрес</strong></td>
+            <td><strong>Телефонный номер</strong></td>
+            <td><strong>Арендодатель</strong></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="name">
+                    <input id="name" type="text" name="name">
+                </label>
+            </td>
+            <td>город:
+                <label for="city">
+                    <input id="city" type="text" name="city">
+                </label>
+                адрес:
+                <label for="address">
+                    <input id="address" type="text" name="address">
+                </label>
+            </td>
+            <td>
+                <label for="phone">
+                    <input id="phone" type="text" name="phoneNumber">
+                </label>
+            </td>
+            <td th:text="${session.user.lastName + ' ' + session.user.firstName}"></td>
+    </table>
+    <p></p>
+    <small>
+        <input type="submit" name="save" value="Сохранить">
+    </small>
+</form>
+</body>
+</html>

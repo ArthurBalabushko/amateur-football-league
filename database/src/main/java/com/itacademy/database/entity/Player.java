@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "players")
 @Table(name = "player", schema = "football_league_storage")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Player extends User {
@@ -47,8 +50,9 @@ public class Player extends User {
     private RequestInTeam requestInTeam;
 
     @Builder
-    public Player(String firstName, String lastName, LocalDate birthDay, String phoneNumber, String email,
-                  String password, Role role, Position position, Integer growth, Integer weight, Team team) {
+    public Player(String firstName, String lastName, LocalDate birthDay, String phoneNumber,
+                  String email, String password, Role role, Position position, Integer growth,
+                  Integer weight, Team team) {
 
         super(firstName, lastName, birthDay, phoneNumber, email, password, role);
         this.position = position;

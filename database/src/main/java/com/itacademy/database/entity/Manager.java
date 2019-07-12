@@ -28,8 +28,7 @@ public class Manager extends User {
     private Team team;
 
     @Builder
-    public Manager(String firstName, String lastName, LocalDate birthDay, String phoneNumber, String email,
-                   String password, Role role) {
+    public Manager(String firstName, String lastName, LocalDate birthDay, String phoneNumber, String email, String password, Role role) {
         super(firstName, lastName, birthDay, phoneNumber, email, password, role);
     }
 }

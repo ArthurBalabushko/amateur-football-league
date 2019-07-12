@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>AFL.by</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<p></p>
+<div>
+    <input type="button" name="players" value="Список игроков" th:onclick="'window.location.href=\'/players\''">
+</div>
+<p></p>
+<div>
+    <input type="button" name="teams" value="Список команд" th:onclick="'window.location.href=\'/teams\''">
+</div>
+<p></p>
+<div>
+    <input type="button" name="fields" value="Список полей" th:onclick="'window.location.href=\'/fields\''">
+</div>
+</body>
+</html>
