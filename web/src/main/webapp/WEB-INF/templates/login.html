@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>AFL.by</title>
+</head>
+<body>
+<div th:insert="~{header::main}"></div>
+<br>
+<span th:if="${param.error}" style="color: red" th:text="#{login.error}"></span>
+<p></p>
+<form th:action="@{/login}" th:method="post">
+    <div>
+        <label for="username" th:text="#{login.username}">Логин</label>
+        <input id="username" type="text" name="username"/>
+    </div>
+    <p></p>
+    <div>
+        <label for="password" th:text="#{login.password}">Пароль</label>
+        <input id="password" type="password" name="password"/>
+    </div>
+    <p></p>
+    <input type="submit" name="submit" th:value="#{login.submit}"/>
+</form>
+<p></p>
+<form th:action="@{/registration}" th:method="get">
+    <input type="submit" th:value="#{login.registration}"/>
+</form>
+</body>
+</html>

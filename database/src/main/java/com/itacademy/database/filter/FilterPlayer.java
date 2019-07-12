@@ -15,5 +15,5 @@ public class FilterPlayer {
     private String position;
     private String team;
     private Integer limit;
-    private Integer offset;
+    private Integer page;
 }
